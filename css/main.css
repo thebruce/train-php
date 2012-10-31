@@ -909,3 +909,9 @@ body {
 	display: none;
 }
 
+/*********************************************
+ * Probably just killed a kitten by hacking core here.
+ ********************************************/
+.strike {
+  text-decoration: line-through;
+}
