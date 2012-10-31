@@ -5,7 +5,6 @@
 		
 		<title>PHP For Non-Programmers: Drupal and PHP</title>
 
-
 		<meta name="description" content="A presentation for non-programmers learning php and Drupal.">
 		<meta name="author" content="Ian Carrico">
 		<meta name="author" content="David Diers">
@@ -43,7 +42,7 @@
 			<div class="slides">
 				<section>
           <h1>PHP for Drupal</h1>
-				  <h3>PHP For Non-programmers</h3>
+				  <h2>PHP For Non-programmers</h3>
 			  </section>
 			
 			<section>
@@ -102,43 +101,48 @@
 			</section>
 			
 
-				<section>
-				  <h1>PHP For Drupal</h1>
-					<h3>Making a Module and Theme</h3>
-				</section>
-				<section>
-				  <section>
-				    <h2>Module's .info File</h2>
-				    <p>Every module needs a .info file to alert Drupal that it exists. The .info file requires you have:</p>
+			<section>
+			  <h1>PHP For Drupal</h1>
+			  <h3>Making a Module and Theme</h3>
+			</section>
+			<section>
+			  <section>
+          <h2>Module's .info File</h2>
+				  <p>Every module needs a .info file to alert Drupal that it exists. The .info file requires you have:</p>
+				  <ul>
 				    <li class="fragment">Name of the module</li>
 				    <li class="fragment">Description of the module</li>
 				    <li class="fragment">Which version of Drupal the module is for</li>
-				  </section>
-				  <section>
-				    <h2>Module's .info File</h2>
-				    <p>What it looks like right now</p>
-				    <pre><code contenteditable style="margin-top: 20px;">
+				  </ul>
+				</section>
+				<section>
+				  <h2>Module's .info File</h2>
+				  <p>What it looks like right now</p>
+				  <pre><code contenteditable style="margin-top: 20px;">
 name = My Very Own Module
 description = A module for the 2012 BAD camp PHP training.
 core = 7.x
-				    </code></pre>
-				  </section>
-				  <section>
-				    <h2>Module's .info File</h2>
-				    <p>You can also include the following:</p>
+				  </code></pre>
+				</section>
+				<section>
+				  <h2>Module's .info File</h2>
+				  <p>You can also include the following:</p>
+				  <ul>
 				    <li class="fragment">Package (e.g. views)</li>
 				    <li class="fragment">Dependencies</li>
 				    <li class="fragment">Stylesheets</li>
 				    <li class="fragment">Javascript files</li>
 				    <li class="fragment">PHP Version</li>
 				    <li class="fragment">Configuration page URL</li>
-				    <br><br>
-				    <p>Taken from: <a href="http://drupal.org/node/542202">http://drupal.org/node/542202</a></p>
-				  </section>
-				  <section>
-				    <h2>Module's .info File</h2>
-				    <p>What it could look like</p>
-				    <pre><code contenteditable style="margin-top: 20px;">
+			    </ul>
+				  <br><br>
+				  <p>Taken from: <a href="http://drupal.org/node/542202">http://drupal.org/node/542202</a></p>
+				</section>
+				
+				<section>
+				  <h2>Module's .info File</h2>
+				  <p>What it could look like</p>
+				  <pre><code contenteditable style="margin-top: 20px;">
 name = My Very Own Module
 description = A module for the 2012 BAD camp PHP training.
 core = 7.x
@@ -150,11 +154,121 @@ stylesheets[all][] = style.css
 stylesheets[print][] = print.css
 scripts[] = js/script.js
 configure = admin/config/content/my_module
-				    </code></pre>
-				  </section>
+				  </code></pre>
 				</section>
-
-
+			</section>
+      
+      <!-- Ian drops the mic -->
+      <!-- Dave - Drupal in php - the guts of it -->
+			<section>
+				<h2>Drupal and PHP: A further primer</h2>
+				<p>Let's take a look at:</p>
+				<ul>
+				  <li class="fragment">How the dang thing works</li>
+				  <li class="fragment">Some things to remember for PHP in Drupal</li>
+			</section>
+			
+			<section>
+				<section>
+				  <h2>How Does Drupal Work?</h2>
+				  <p>Imagine if you will....</p>
+				  <h3 class="fragment">The most incredible pet snail store still stranded in the 90s</h3>
+			  </section>
+			  <section>
+			    <h3>Your pet snail - a snail mail tale</h2>
+			      <ol>
+			        <li class="fragment">You want an awesome snail so you fill out a mail order form for a snail, write a check and put it, put it in an envelope, and give it to the post man.</li>
+			        <li class="fragment">The Postman gives the envelope to the mail sorter</li>
+			        <li class="fragment">The mail sorter figures out which mail cart to put your envelope based on the address you indicated.</li>
+			        <li class="fragment">So on and so forth - it is put on a truck, then a plane, then sorted for delivery, eventually winding up at the Snail Store where your order is fulfilled a snail is placed in a safe transportable home (a shell for his shell) and the process happens in reverse until... You get a snail by snail mail, thus ending the tale.</li>
+			      </ol>
+			  </section>
+			  <section>
+			    <h3>Further Imagining: What if?</h3>
+			    <ul>
+			      <li class="fragment">What if all of the various people performing these actions announced what they were doing and asked for changes?</li>
+			      <li class="fragment">What if some of the people:
+			        <ol>
+			          <li class="fragment"> Before they did anything said: "I am about to do this, any changes or actions you want to take?"</li>
+			          <li class="fragment"> While they were doing something "I am doing this, any changes or things you need to do"</li>
+			          <li class="fragment"> After they finished "Hey, i am done, anything you want to do now."</li>
+			        </ol>
+			      </li>
+			    </ul>
+			  </section>
+			  <section>
+			    <h3>Further Imagining: What if?</h3>
+			    <ul>
+			      <li>Finally - what if after your order was completed but before you got it:
+			        <ol>
+			          <li class="fragment">the snail's shell could be painted
+			          <li class="fragment"> a different mollusk could be switched out with your snail
+			          <li class="fragment"> somebody might call you and ask if you have permission to have this snail.
+			        </ol>
+			    </ul>
+			  </section>
+        <section>
+          <h1>#Mindblown:</h1>
+          <p>Drupal is very much like this bizarre story of invertebrate fulfillment</p>
+          <p class="fragment">minus the snails</p>
+        </section>
+        <section>
+          <ul>
+		        <li><span class="strike">You want an awesome snail so you fill out a mail order form for a snail, write a check and put it, put it in an envelope, and give it to the post man.</span></li>
+		        <li class="fragment">You want to see a webpage so you type the address into the browser</li>
+		      </ul>
+        </section>
+        <section>
+          <ul>
+		        <li class="fragment"><span class="strike">The Postman gives the envelope to the mail sorter</span></li>
+		        <li class="fragment">Your browser and the internet direct your request to the webserver and to the site that happens to be in Drupal.</li>
+		      </ul>
+        </section>
+        <section>
+          <ul>
+		        <li class="fragment"><span class="strike">The mail sorter figures out which mail cart to put your envelope based on the address you indicated.</span></li>
+		         <li class="fragment">A special file on the site, the index.php file responds to the fact that a request has been made and asks where your request should be directed (hook_menu)</li>
+		        </ul>
+        </section>
+        <section>
+          <ul>
+		       <li class="fragment"><span class="strike">So on and so forth - it is put on a truck, then a plane, then sorted for delivery, eventually winding up at the Snail Store where your order is fulfilled a snail is placed in a safe transportable home (a shell for his shell) and the process happens in reverse until... You get a snail by snail mail, thus ending the tale.</span></li>
+		        <li class="fragment">Like the snail example, various events occur and various actors (php functions and libraries in this case) perform them which builds the page (fulfills your order) and sends a web page to your browser.</li>
+		      </ul>
+        </section>
+        <section>
+          <h3>Further Imagining: What if?</h3>
+          <ul>
+            <li class="fragment">The what if scenarios that we discussed happen too-
+          <li class="fragment">Each step of the way various pieces of php code listen to hear what events are taking place and may or may not take actions in response
+          <li class="fragment">Those events could be checking to see if you have access, deciding what content goes on the page, building the menu for the page you are on
+          <li class="fragment">This is true power of Drupal - and this power is called...
+        </section>
+        <section>
+          <h1>The Hook System</h1>
+        </section>
+      </section>
+        
+       <!-- Mix Master Carrico picks it back up, yo. -->
+       
+       <!-- Ian drops the mic, again. Hey man, those things are a benny a piece, please calm down. -->
+       
+       
+       
+       <!-- working with drupal and php - the most important bits
+         best practice: don't hack core - your stuff goes in sites/
+         best practice: coding guidelines
+         best practice: don't close <?php ?>
+         clear cachea
+         best practice: use the drupal api for core and module functions
+         best practice:  find a hook -
+         -->
+       <!-- Where to go from here-->
+       <!-- Drupal.org -->
+       <!-- books / training -->
+       <!-- MySQL -->
+       <!-- what can i do with all this? -->
+       <!-- change how links are formatted, change the html output of the page, change where links are pointed, created custom pages that use php code to process or alter data stored in drupal>
 
   			
         <!-- Everything past this was already here and must be removed -->				
